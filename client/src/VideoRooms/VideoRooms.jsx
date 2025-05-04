@@ -18,6 +18,8 @@ const DUMMY_ROOMS = [
 
 const RoomsList = ({ minimized }) => {
   const rooms = useSelector((store) => store.videoRooms.rooms); // Replace with actual data
+  console.log(rooms);
+  
 
   if (minimized) {
     return (
