@@ -5,6 +5,8 @@ const cors = require("cors");
 const { Server } = require("socket.io");
 const { Socket } = require("dgram");
 const { disconnect } = require("process");
+const {PeerServer} = require("peer");
+
 
 const server = http.createServer(app);
 
@@ -39,6 +41,9 @@ io.on("connection", (socket) => {
     disconnectEventHandler(socket.id);
   });
 });
+
+const peerServer = PeerServer({ port: 9000, path: "/peer" });
+
 const PORT = process.env.PORT || 3003;
 server.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}`);

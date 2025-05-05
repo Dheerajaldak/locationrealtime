@@ -1,8 +1,17 @@
 import React from "react";
+import { joinVideoRoom } from "../store/actions/videoRoomAction";
+import { useSelector } from "react-redux";
 
 const RoomJoinButton = ({ creatorUsername, roomId, amountOfParticipants }) => {
+  const inRoom = useSelector((state) => state.videoRooms.inRoom);
   const handleJoinRoom = () => {
-    // Implement room joining logic here
+    if (inRoom) {
+      return alert("You are already in a room!");
+    }
+    if (amountOfParticipants > 1) {
+      return alert("Room is full!");
+    }
+    joinVideoRoom(roomId);
   };
 
   return (

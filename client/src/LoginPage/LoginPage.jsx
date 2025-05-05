@@ -8,6 +8,7 @@ import { setMyLocation } from "../MapPage/MapSlice";
 import { getFakeLocation } from "./FAKE_LOCATIONS";
 import { connectWithSocketIOServer } from "../socketConnection/socketConn";
 import { proceedWithLogin } from "../store/actions/loginPageAction";
+import { connectWithPeerServer } from "../realtimeCommunication/webRTCHandler";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -74,6 +75,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (myLocation) {
       connectWithSocketIOServer();
+      connectWithPeerServer();
     }
   }, [myLocation]);
 

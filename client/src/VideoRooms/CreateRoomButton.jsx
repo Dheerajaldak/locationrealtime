@@ -1,8 +1,15 @@
 import React from "react";
 import { FcVideoCall } from "react-icons/fc";
 import { createVideoRoom } from "../store/actions/videoRoomAction";
+import { useSelector } from "react-redux";
 const CreateRoomButton = () => {
+  const inRoom = useSelector((state) => state.videoRooms.inRoom);
+
+
   const handleRoomCreate = () => {
+    if (inRoom) {
+      return alert("You are already in a room!");
+    }
     createVideoRoom();
     
   };

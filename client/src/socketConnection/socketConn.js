@@ -46,3 +46,9 @@ export const sendChatMessage = (data) => {
 export const createVideoRoom = (data) => {
   socket.emit("video-room-create", data);
 };
+
+export const joinVideoRoom = (data) => {
+  console.log("emitting event to join room", data);
+
+  socket.emit("video-room-join", data);
+};
