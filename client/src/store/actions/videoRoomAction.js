@@ -1,19 +1,26 @@
 import { v4 as uuid } from "uuid";
 import store from "../store";
-import { setInRoom, setRooms } from "../../realtimeCommunication/videoRoomsSlice";
+import {
+  setInRoom,
+  setRooms,
+} from "../../realtimeCommunication/videoRoomsSlice";
 import * as socketConn from "../../socketConnection/socketConn";
+import { getAccessToLocalStream } from "../../realtimeCommunication/webRTCHandler";
 
 export const createVideoRoom = async () => {
-  const newRoomId = uuid();
-  store.dispatch(setInRoom(newRoomId));
+  const success = await getAccessToLocalStream();
 
-  socketConn.createVideoRoom({
-    peerId: 1,
-    newRoomId,
-  });
+  if (success) {
+    const newRoomId = uuid();
+    store.dispatch(setInRoom(newRoomId));
+
+    socketConn.createVideoRoom({
+      peerId: 1,
+      newRoomId,
+    });
+  }
 };
 
-
 export const videoRoomsListHandler = (videoRooms) => {
-    store.dispatch(setRooms(videoRooms))
-}
+  store.dispatch(setRooms(videoRooms));
+};
