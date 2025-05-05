@@ -92,17 +92,17 @@
 
 //   return (
 //     <div
-//       className={`fixed bottom-0 left-0 right-0 sm:bottom-4 sm:right-4 sm:left-auto z-50 
+//       className={`fixed bottom-0 left-0 right-0 sm:bottom-4 sm:right-4 sm:left-auto z-50
 //         flex ${
 //           minimized
 //             ? "justify-start sm:flex-col sm:items-start"
 //             : "justify-center sm:items-start sm:flex-col"
-//         } 
+//         }
 //         px-2 sm:px-0 pb-2 sm:pb-0`}
 //     >
 //       <div
-//         className={`relative bg-white dark:bg-gray-900 rounded-xl shadow-xl 
-//           transition-all duration-300 overflow-hidden 
+//         className={`relative bg-white dark:bg-gray-900 rounded-xl shadow-xl
+//           transition-all duration-300 overflow-hidden
 //           ${minimized ? "w-full sm:w-auto" : "w-full sm:w-80"}`}
 //       >
 //         <RoomsList minimized={minimized} />
@@ -125,7 +125,6 @@
 // };
 
 // export default VideoRooms;
-
 
 // import React, { useState } from "react";
 // import { useSelector } from "react-redux";
@@ -215,17 +214,17 @@
 
 //   return (
 //     <div
-//       className={`fixed bottom-0 left-0 right-0 sm:bottom-4 sm:right-4 sm:left-auto z-50 
+//       className={`fixed bottom-0 left-0 right-0 sm:bottom-4 sm:right-4 sm:left-auto z-50
 //         flex ${
 //           minimized
 //             ? "justify-start sm:flex-col sm:items-start"
 //             : "justify-center sm:items-start sm:flex-col"
-//         } 
+//         }
 //         px-2 sm:px-0 pb-2 sm:pb-0`}
 //     >
 //       <div
-//         className={`relative bg-white dark:bg-gray-900 rounded-xl shadow-xl 
-//           transition-all duration-300 overflow-hidden 
+//         className={`relative bg-white dark:bg-gray-900 rounded-xl shadow-xl
+//           transition-all duration-300 overflow-hidden
 //           ${minimized ? "w-full sm:w-auto" : "w-full sm:w-80"}`}
 //       >
 //         <RoomsList minimized={minimized} />
@@ -257,12 +256,15 @@ import {
   HiOutlineChevronDoubleDown,
 } from "react-icons/hi";
 import { FiUsers } from "react-icons/fi";
+import ParticipantsVideos from "./ParticipantsVideos";
 
 // Helper to convert the room object to an array with needed details
 const convertRoomsToArray = (videoRooms) => {
   const rooms = [];
   Object.entries(videoRooms).forEach(([key, value]) => {
-    const participants = Array.isArray(value.participants) ? value.participants : [];
+    const participants = Array.isArray(value.participants)
+      ? value.participants
+      : [];
     rooms.push({
       id: key,
       creatorUsername: participants[0]?.username || "Unknown",
@@ -336,35 +338,40 @@ const VideoRooms = () => {
   const [minimized, setMinimized] = useState(false);
 
   return (
-    <div
-      className={`fixed bottom-0 left-0 right-0 sm:bottom-4 sm:right-4 sm:left-auto z-50 
+    <>
+      <div
+        className={`fixed bottom-0 left-0 right-0 sm:bottom-4 sm:right-4 sm:left-auto z-50 
         flex ${
           minimized
             ? "justify-start sm:flex-col sm:items-start"
             : "justify-center sm:items-start sm:flex-col"
         } 
         px-2 sm:px-0 pb-2 sm:pb-0`}
-    >
-      <div
-        className={`relative bg-white dark:bg-gray-900 rounded-xl shadow-xl 
+      >
+        <div
+          className={`relative bg-white dark:bg-gray-900 rounded-xl shadow-xl 
           transition-all duration-300 overflow-hidden 
           ${minimized ? "w-full sm:w-auto" : "w-full sm:w-80"}`}
-      >
-        <RoomsList minimized={minimized} />
-
-        <button
-          onClick={() => setMinimized((prev) => !prev)}
-          className="absolute top-2 right-2 bg-gray-700 text-white text-sm w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-600 transition"
-          aria-label={minimized ? "Maximize" : "Minimize"}
         >
-          {minimized ? (
-            <HiOutlineChevronDoubleDown size={16} />
-          ) : (
-            <HiOutlineChevronDoubleUp size={16} />
-          )}
-        </button>
+          <ParticipantsVideos/>
+          <RoomsList minimized={minimized} />
+          
+
+          <button
+            onClick={() => setMinimized((prev) => !prev)}
+            className="absolute top-2 right-2 bg-gray-700 text-white text-sm w-7 h-7 flex items-center justify-center rounded-full hover:bg-gray-600 transition"
+            aria-label={minimized ? "Maximize" : "Minimize"}
+          >
+            {minimized ? (
+              <HiOutlineChevronDoubleDown size={16} />
+            ) : (
+              <HiOutlineChevronDoubleUp size={16} />
+            )}
+          </button>
+        </div>
       </div>
-    </div>
+      
+    </>
   );
 };
 
