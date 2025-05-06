@@ -6,6 +6,7 @@ import RegisterPage from "./LoginPage/RegisterPage";
 
 import Hrms from "./components/Hrms";
 import CreateRoomButton from "./VideoRooms/CreateRoomButton";
+import VideoRoomButtons from "./VideoRooms/VideoRoomButtons";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/map" element={<MapPage />} />
-        <Route path="/test" element={<CreateRoomButton/>} />
+        <Route path="/test" element={<VideoRoomButtons/>} />
         <Route path="/hrms" element={<Hrms/>} />
       </Routes>
     </Router>

@@ -1,18 +1,48 @@
+// import React, { useEffect, useRef } from "react";
+
+// const Video = ({ stream, muted }) => {
+//   const videoEl = useRef();
+
+//   useEffect(() => {
+//     const video = videoEl.current;
+//     video.srcObject = stream;
+
+//     video.onloadedmetadata = () => {
+//       video.play();
+//     };
+//   }, [stream]);
+//   return (
+//     <div className="w-48 h-32 bg-transparent rounded-md overflow-hidden shadow-md">
+//       <video
+//         ref={videoEl}
+//         className="w-full h-full object-cover"
+//         playsInline
+//         autoPlay
+//         muted={muted}
+//       />
+//     </div>
+//   );
+// };
+
+// export default Video;
+
+
 import React, { useEffect, useRef } from "react";
 
 const Video = ({ stream, muted }) => {
-  const videoEl = useRef();
+  const videoEl = useRef(null);
 
   useEffect(() => {
-    const video = videoEl.current;
-    video.srcObject = stream;
-
-    video.onloadedmetadata = () => {
-      video.play();
-    };
+    if (videoEl.current && stream) {
+      videoEl.current.srcObject = stream;
+      videoEl.current.onloadedmetadata = () => {
+        videoEl.current.play().catch((err) => console.error("Video play error:", err));
+      };
+    }
   }, [stream]);
+
   return (
-    <div className="w-48 h-32 bg-transparent rounded-md overflow-hidden shadow-md">
+    <div className="w-60 h-40 sm:w-72 sm:h-48 lg:w-80 lg:h-56 rounded-lg overflow-hidden shadow-lg border border-gray-300 bg-black relative">
       <video
         ref={videoEl}
         className="w-full h-full object-cover"
@@ -20,6 +50,9 @@ const Video = ({ stream, muted }) => {
         autoPlay
         muted={muted}
       />
+      <div className="absolute bottom-1 right-1 text-white text-xs bg-black bg-opacity-50 px-2 py-0.5 rounded">
+        {muted ? "You" : "Guest"}
+      </div>
     </div>
   );
 };

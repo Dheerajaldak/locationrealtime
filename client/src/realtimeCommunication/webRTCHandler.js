@@ -45,13 +45,24 @@ export const connectWithPeerServer = () => {
   });
 };
 
+export const call = (data) => {
+  const { newParticipantPeerId } = data;
+  const localStream = store.getState().videoRooms.localStream;
+  const peerCall = peer.call(newParticipantPeerId, localStream);
+  peerCall.on("stream", (remoteStream) => {
+    console.log("remote stream came");
+    store.dispatch(setRemoteStreams(remoteStream));
+  });
+};
 
-export const call =(data)=>{
-    const {newParticipantPeerId}=data;
-    const localStream = store.getState().videoRooms.localStream;
-    const peerCall = peer.call(newParticipantPeerId, localStream);
-    peerCall.on("stream", (remoteStream) => {
-      console.log("remote stream came");
-      store.dispatch(setRemoteStreams(remoteStream));
+export const disconnect = () => {
+  for (let conns in peer.connections) {
+    peer.connections[conns].forEach((c) => {
+      console.log("closing connection");
+      c.peerConnection.close();
+      if (c.close) c.close();
     });
-}
+  }
+
+  store.dispatch(setRemoteStreams(null));
+};
