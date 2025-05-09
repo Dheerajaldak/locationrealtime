@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyLocation } from "../MapPage/MapSlice";
-import { getFakeLocation } from "./FAKE_LOCATIONS";
+// import { getFakeLocation } from "./FAKE_LOCATIONS";
 import { connectWithSocketIOServer } from "../socketConnection/socketConn";
 import { proceedWithLogin } from "../store/actions/loginPageAction";
 import { connectWithPeerServer } from "../realtimeCommunication/webRTCHandler";
@@ -42,7 +42,8 @@ const LoginPage = () => {
         latitude: myLocation.latitude,
       },
     });
-    navigate("/map");
+    // navigate("/map");
+    navigate("/home");
   };
 
   const onSuccess = (position) => {
@@ -65,12 +66,12 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    // navigator.geolocation.getCurrentPosition(
-    //   onSuccess,
-    //   onError,
-    //   locationOptions
-    // );
-    onSuccess(getFakeLocation());
+    navigator.geolocation.getCurrentPosition(
+      onSuccess,
+      onError,
+      locationOptions
+    );
+    // onSuccess(getFakeLocation());
   }, []);
   useEffect(() => {
     if (myLocation) {

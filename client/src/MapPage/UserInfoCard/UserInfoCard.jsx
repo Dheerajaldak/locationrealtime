@@ -42,9 +42,10 @@ const UserInfoCard = ({ username, userLocation, socketId, onClose }) => {
       <div className="mt-4 flex justify-end gap-3 text-sm">
         <button className="flex items-center gap-1 bg-cyan-900 hover:bg-teal-900 text-white py-2 px-4 rounded-md shadow-md transition duration-300">
           <AiOutlineMessage className="text-3xl" />
+          
           Chat with {username.split(" ")[0]}
         </button>
-
+        
         <CreateRoomButton />
       </div>
     </div>
