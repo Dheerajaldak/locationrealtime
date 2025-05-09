@@ -10,8 +10,8 @@ import { call, disconnect } from "../realtimeCommunication/webRTCHandler";
 let socket = null;
 
 export const connectWithSocketIOServer = () => {
-  socket = io("http://localhost:3003");
-  // socket = io("https://webrtcsockeiolocation.onrender.com");
+  // socket = io("http://localhost:3003");
+  socket = io("https://salestrackervisysdheeraj-a.onrender.com");
 
   socket.on("connect", () => {
     console.log("connected to socket.io");
